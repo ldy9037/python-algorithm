@@ -22,7 +22,7 @@ python 공부 용 Repository
  Python 공부를 위해 생성.
  
  ##### 기술 스택
- - python3
+ - [python3](https://docs.python.org/3/)
  
 ## 시작하기
 
