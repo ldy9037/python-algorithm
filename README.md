@@ -2,7 +2,7 @@
 
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-python 공부 용 Repository 
+python 공부 용 Repository -
 
 ##### 좋은 commit message 작성을 위한 참고자료
 
