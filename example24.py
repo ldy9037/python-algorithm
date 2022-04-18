@@ -1,7 +1,7 @@
 def palindrome(str):
-    lowerSter = str.lower()
-    return str[::-1] == str
+    lowerStr = str.lower().replace(" ", "")
+    return lowerStr[::-1] == lowerStr
 
-print(palindrome('anna'))
+print(palindrome('ann a'))
 
-print((lambda str: str[::-1] == str) ('anna'))
+# print((lambda str: str[::-1] == str) ('anna'))
