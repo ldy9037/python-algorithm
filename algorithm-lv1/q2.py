@@ -1,3 +1,4 @@
+# 카카오 - 신규 아이디 추천
 import re
 
 def solution(new_id):

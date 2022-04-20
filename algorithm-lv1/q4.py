@@ -1,3 +1,4 @@
+# 카카오 - 키패드 누르기
 def getDistance(leftSource, rightSource, destination): 
     result = dict()
     result['L'] = abs(leftSource[0] - destination[0]) + abs(leftSource[1] - destination[1])

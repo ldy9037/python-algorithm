@@ -1,3 +1,4 @@
+# 카카오 - 신고 결과 받기
 def solution(id_list, report_list, k):
     answer = [0 for i in range(len(id_list))]
     report_status = dict()
