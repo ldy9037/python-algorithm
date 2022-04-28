@@ -1,4 +1,4 @@
-# 스택, 큐
+# 스택, 큐 - 주식 가격
 """
 deque를 이용한 풀이
 from queue import deque
