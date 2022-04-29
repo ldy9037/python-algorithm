@@ -1,4 +1,4 @@
-# 정렬 - 큰 수
+# 정렬 - 가장 큰 수
 
 from functools import reduce
 
