@@ -1,42 +1,32 @@
 # 동적계획법 - N으로 표현
 import math
 
-def minimum_sum(prev_calculation):
-    result = 0
+def arithmetic_operation(prev_list, N):
+    result = set()
+    result.add(int(str(N) * (len(prev_list) + 1) ))
 
-    for i in range(math.ceil(len(prev_calculation))):
-        case = prev_calculation[i] + prev_calculation[-1-i]
-        if case < result or result == 0 : result = case
-
+    for i in range(math.ceil(len(prev_list))):
+        for first_calculated_value in prev_list[i]:
+            for second_calculated_value in prev_list[-1-i]:
+                result.add(first_calculated_value + second_calculated_value)
+                result.add(abs(first_calculated_value - second_calculated_value))
+                result.add(first_calculated_value * second_calculated_value)
+                if first_calculated_value != 0 and second_calculated_value != 0:
+                    result.add(first_calculated_value // second_calculated_value)
+                    result.add(second_calculated_value // first_calculated_value)
+                
     return result
-    
 
 def solution(N, number):
-    answer = 0
-    calculation = [0] * 32000
+    answer = 1
+    calculation = []
     
-    if N == 1: return number
+    for i in range(8):
+        calculation.append(arithmetic_operation(calculation[:i], N))
+        if number in calculation[-1]: break
+        answer += 1
 
-    calculation[0] = 2
-    calculation[1] = 3
-    calculation[N - 1] = 1
-
-    for i in range(1, 32000):
-        """
-        quotient, remainder = divmod(i + 1, N)
-        if remainder == 0: 
-            calculation[i] = quotient
-            continue
-        """
-        count_sum = calculation[i - 1] + calculation[i]
-        print(calculation)
-        calculation[(i - 1) + i] = calculation[i - 1] + calculation[i] if calculation[(i - 1) + i] != 0 and calculation[(i - 1) + i] > calculation[i - 1] + calculation[i] else calculation[(i - 1) + i]
-         
-        calculation[i] = minimum_sum(calculation[:i]) 
-    
-    print(calculation)
-
-    return answer
+    return answer if answer <= 8 else -1
 
 N = 5
 number = 12
