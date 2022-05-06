@@ -5,14 +5,13 @@ def check(place):
         for k in range(len(place[i])):
             if place[i][k] == "P":
                 stack = [(i, k, 0)]
-                print("start", i, k)
 
                 while stack:
                     row, col, depth = stack.pop()
 
                     if place[row][col] == "X": continue
                     if depth >= 1 and row == i and col == k: continue
-                    print("거쳐감", row, col, place[row][col])
+                    
                     if depth >= 1 and place[row][col] == "P": 
                         return 0
 
