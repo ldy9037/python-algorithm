@@ -4,12 +4,19 @@
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.tail = None
 
     def setHead(self, node):
         self.head = node
 
+    def setTail(self, node):
+        self.tail = node
+
     def getHead(self):
         return self.head
+
+    def getTail(self):
+        return self.tail
 
     def length(self):
         result = 0
@@ -28,6 +35,11 @@ class LinkedList:
         while current["index"] <= index:
             if current["index"] == index:
                 node.setLink(current["node"])
+                node.setNext(current["node"])
+                node.setPrev(prev)
+
+                if node.getNext() == None: self.setTail(node)
+                else: current["node"].setPrev(node)
 
                 if prev == None: self.setHead(node)
                 else: prev.setLink(node)
