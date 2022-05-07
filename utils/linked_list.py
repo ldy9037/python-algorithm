@@ -119,18 +119,33 @@ class LinkedList:
         return result
 
 class Node:
-    def __init__(self, value, link=None):
+    def __init__(self, value, link=None, next=None, prev=None):
         self.value = value
         self.link = link
+        self.next = next
+        self.prev = prev
 
     def setLink(self, node):
         self.link = node
     
+    def setNext(self, next):
+        self.next = next
+
+    def setPrev(self, prev):
+        self.prev = prev
+
     def setValue(self, value):
         self.value = value
-    
+
     def getLink(self):
         return self.link 
     
+    def getNext(self):
+        return self.next 
+
+    def getPrev(self):
+        return self.prev 
+
     def getValue(self):
         return self.value
+    
