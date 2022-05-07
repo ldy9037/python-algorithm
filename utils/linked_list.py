@@ -34,7 +34,6 @@ class LinkedList:
 
         while current["index"] <= index:
             if current["index"] == index:
-                node.setLink(current["node"])
                 node.setNext(current["node"])
                 node.setPrev(prev)
 
@@ -42,11 +41,10 @@ class LinkedList:
                 else: current["node"].setPrev(node)
 
                 if prev == None: self.setHead(node)
-                else: prev.setLink(node)
+                else: prev.setNext(node)
                 break
 
             prev = current["node"]
-            current["node"] = current["node"].getLink()
             current["node"] = current["node"].getNext()                
             current["index"] += 1
         
@@ -57,10 +55,8 @@ class LinkedList:
         
         while current != None: 
             if current.getValue() == value: 
-                node.setLink(current.getLink())
                 node.setNext(current.getNext())
                 node.setPrev(current)
-                current.setLink(node)
                 current.setNext(node)
 
                 next_node = node.setNext()
@@ -69,8 +65,7 @@ class LinkedList:
 
                 break
             
-            current = current.getLink()
-            current = current.getNext
+            current = current.getNext()
         return -1
 
     def append(self, node):
