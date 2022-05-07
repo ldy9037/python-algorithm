@@ -69,18 +69,13 @@ class LinkedList:
         return -1
 
     def append(self, node):
-        current = self.getHead()
+        tail = self.getTail()
+        self.setTail(node)
 
-        if current == None: 
-            self.setHead(node)
-            return
-
-        while current != None:
-            if current.getLink() == None: 
-                current.setLink(node)
-                break
-            
-            current = current.getLink()
+        if tail != None: 
+            tail.setNext(node)
+            node.setPrev(tail)
+        else: self.setHead(node)
 
     def remove(self, index): 
         current = {"index": 0, "node": self.getHead()}
