@@ -1,9 +1,6 @@
 # 파이썬은 linked list가 없길래 그냥 간단하게 구현해 봄.(최소한의 기능만 포함)
 # 필요한 기능은 그때그때 추가해서 사용할 것.
 # 중복 코드가 조금 많음. 기능을 좀 더 잘게 나눠야 겠음.
-from cgitb import reset
-
-
 class LinkedList:
     def __init__(self):
         self.head = None
