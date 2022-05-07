@@ -46,7 +46,8 @@ class LinkedList:
                 break
 
             prev = current["node"]
-            current["node"] = current["node"].getLink()                
+            current["node"] = current["node"].getLink()
+            current["node"] = current["node"].getNext()                
             current["index"] += 1
         
         if current["index"] > index: return -1
