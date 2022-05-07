@@ -23,7 +23,7 @@ class LinkedList:
         current = self.getHead()
 
         while current != None:
-            current = current.getLink()
+            current = current.getNext()
             result += 1
 
         return result
