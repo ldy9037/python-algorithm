@@ -19,7 +19,9 @@ class LinkedList:
             current = current.getLink()
             result += 1
 
-    def addNode(self, index, node):             
+        return result
+
+    def add(self, index, node):             
         current = {"index": 0, "node": self.getHead()}
         prev = None
 
@@ -27,7 +29,7 @@ class LinkedList:
             if current["index"] == index:
                 node.setLink(current["node"])
 
-                if prev == None: self.setHead(prev)
+                if prev == None: self.setHead(node)
                 else: prev.setLink(node)
                 break
 
@@ -72,13 +74,13 @@ class LinkedList:
             if current["index"] == index:
                 if prev == None: self.setHead(current["node"].getLink())
                 else: prev.setLink(current["node"].getLink())
-                break
+                return current["node"].getValue()
             
             prev = current["node"]
             current["node"] = current["node"].getLink()
             current["index"] += 1
         
-        if current["index"] > index: return -1
+        return None
 
     def removeByValue(self, value):
         current = {"index": 0, "node": self.getHead()}
@@ -93,6 +95,17 @@ class LinkedList:
             current["node"] = current["node"].getLink() 
             
         return -1
+
+    def getValue(self, index):
+        current = {"index": 0, "node": self.getHead()}
+        
+        while current["node"] != None: 
+            if current["index"] == index: return current["node"].getValue()
+
+            current["node"] = current["node"].getLink()
+            current["index"] += 1
+        
+        return None
 
     def toList(self):
         result = []
