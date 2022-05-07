@@ -21,7 +21,6 @@ def solution(survey, choices):
         elif score < 0: result[sorted_question][question[0]] += abs(score)
         elif score > 0: result[sorted_question][question[1]] += abs(score)
 
-    print(result)
     for k,v in result.items():
         answer += max(v,key=v.get)
         
