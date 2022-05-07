@@ -57,11 +57,19 @@ class LinkedList:
         while current != None: 
             if current.getValue() == value: 
                 node.setLink(current.getLink())
+                node.setNext(current.getNext())
+                node.setPrev(current)
                 current.setLink(node)
+                current.setNext(node)
+
+                next_node = node.setNext()
+                if next_node == None: self.setTail(node)
+                else: next_node.setPrev(node)
+
                 break
             
             current = current.getLink()
-        
+            current = current.getNext
         return -1
 
     def append(self, node):
