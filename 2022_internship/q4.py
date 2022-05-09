@@ -5,8 +5,8 @@ from collections import deque
 
 def solution(n, paths, gates, summits):
     answer = []
-    last_maxium = []
-
+    maxium = []
+    
     left, right = 1, 10000000
     
     gates = deque(gates)
@@ -31,13 +31,13 @@ def solution(n, paths, gates, summits):
 
             heap = []
             heapq.heappush(heap, (0, gate, []))
-    
+
             while heap:
                 time, current, history = heapq.heappop(heap)
                 
                 if (current + 1) in summits: 
                     maxium.append((current + 1,max(history)))
-                    if left != right: break
+                    break
                 if times[current] < time: continue
 
                 for destination, next_time in graph[current]: 
@@ -51,16 +51,16 @@ def solution(n, paths, gates, summits):
                         heapq.heappush(heap, (total_time, destination, history))
 
             gates.append(gate + 1)
-        
+            if left != right and len(maxium) > 0: break 
+
         if len(maxium) > 0: 
-            last_maxium = maxium
+            maxium = maxium
             right = middle -1 
         else: left = middle + 1
 
-    last_maxium.sort()
+    maxium.sort()
     
-    answer = list(last_maxium[0])
-    
+    answer = list(maxium[0])
     return answer
 
 n = 7
