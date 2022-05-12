@@ -1,63 +1,54 @@
 # 그래프 - 순위
-# 잘못 품.. 접근 자체를 잘못한 것 같음.
+# 그래프 정렬(순위대로) 후 위에서 부터 순위확정이 가능 한 노드를 세는 방식으로 풀었으나 시간 초과됨 ㅋㅋ
 from collections import deque
 
 def solution(n, results):
-    answer = []
+    answer = 0
 
     parents = [[] for _ in range(n)]
     visited = [False] * n
     
     graph = [[] for _ in range(n)]
-    for winner, loser in results: graph[winner - 1].append(loser - 1)
-
-    while not all(visited):
-        start = visited.index(False)
-        
-        queue = deque()
-        queue.append(start)
-
-        while queue:
-            print(queue)
-            current = queue.popleft()
-            visited[current] = True
-
-            for loser in graph[current]:
-                same_parents = set(parents[current]) & set(parents[loser])
-                if same_parents: 
-                    for parent in same_parents: graph[parent].remove(loser)
-
-                if visited[loser]: continue
-
-                parents[loser].append(current)
-                queue.append(loser)
-
+    for winner, loser in results: 
+        graph[winner - 1].append(loser - 1)
+        parents[loser - 1].append(winner - 1)
     
-    if parents.count([]) >= 2: 
-        return len(answer)
-
-    answer = range(n)
-
     queue = deque()
     queue.append(0)
 
-    remove = False
     while queue:
         current = queue.popleft()
-        queue.extend(parents[current])
+        visited[current] = True
 
-        if remove: answer.remove(current)
-        if len(parents[current]) >= 2: remove = True
+        for winner in parents[current]: queue.append(winner)
+        for loser in graph[current]:
+            same_parents = set(parents[current]) & set(parents[loser])
+            if same_parents: 
+                for parent in same_parents:
+                    graph[parent].remove(loser)
+                    parents[loser].remove(parent)
 
-    remove = False
-    while queue:
+            if visited[loser]: continue
+
+            queue.append(loser)
+    
+    if not all(visited): return answer
+    
+    start = parents.index([])
+
+    queue.clear()
+    queue.append(start)
+
+    while queue: 
         current = queue.popleft()
+        answer += 1
+
+        if len(parents[current]) >= 2: answer = 1
+        if len(graph[current]) >= 2: break
+
         queue.extend(graph[current])
-
-        if remove: answer.remove(current)
-        if len(parents[current]) >= 2: remove = True
-
-    return len(answer)
+        
+    return answer
 
 n = 5
 results = [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]	
