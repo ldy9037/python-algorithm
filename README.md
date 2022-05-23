@@ -19,7 +19,7 @@ python 공부 용 Repository --
 
 ## 소개
 
- Python 공부를 위해 생성.
+ Python 튜토리얼 및 알고리즘
  
  ##### 기술 스택
  - [python3](https://wikidocs.net/51)
