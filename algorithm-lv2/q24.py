@@ -1,5 +1,5 @@
 # 카카오 블라인드 - 메뉴 리뉴얼
-# 잘못 접근 한 것 같음?
+# collections.Counter 라이브러리를 사용하면 훨씬 깔끔하게 풀 수 있음. 
 from collections import defaultdict
 import itertools
 
@@ -20,8 +20,14 @@ def solution(orders, course):
                 
                 for e in comb: menu[''.join(sorted(e))] += 1
     
+    maxium = dict(zip(course, [0] * len(course)))
+    menu = sorted(menu.items(), key=lambda m: m[1], reverse=True)
     
-    return answer
+    for name, count in menu:
+        if maxium[len(name)] == 0: maxium[len(name)] = count
+        if maxium[len(name)] == count: answer.append(name)
+    
+    return sorted(answer)
 
 orders = ["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"]
 course = [2,3,5]
