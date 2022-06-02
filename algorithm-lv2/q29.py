@@ -15,9 +15,26 @@ def start_location(visited):
     
     return False
 
+def cycle(grid, visited, start):
+    arrow = ["n", "e", "s", "w"]
+    history = [start] # arrow, x, y 0,0,0이면 동쪽으로 가서 x,y에 도착했다는 뜻
+        
+    while len(history) <= 1 or history[0] != history[-1]:
+        p_arrow, row, col = history[-1]        
+        
+        arrow_index = p_arrow
+        if grid[row][col] == "L": arrow_index = p_arrow - 1 if p_arrow > 0 else 3
+        if grid[row][col] == "R": arrow_index = p_arrow + 1 if p_arrow < 3 else 0
+        
+        n_row, n_col = move(arrow[arrow_index], row, col, (len(grid), len(grid[0]))) 
+
+        history.append((arrow_index, n_row, n_col))
+        visited[n_row][n_col][arrow_index] = True 
+
+    return (visited, len(history) - 1)
+
 def solution(grid):
     answer = []
-    arrow = ["n", "e", "s", "w"]
     
     visited = []
     for i in range(len(grid)):
@@ -25,29 +42,14 @@ def solution(grid):
         for k in range(len(grid[0])):
             visited[i].append([False] * 4)
 
-    while True:
-        check_result = start_location(visited)
-        if not check_result: break 
-        
-        history = [check_result] # arrow, x, y 0,0,0이면 동쪽으로 가서 x,y에 도착했다는 뜻
-        
-        while len(history) <= 1 or history[0] != history[-1]:
-            
-
-            p_arrow, row, col = history[-1]        
-            
-            arrow_index = p_arrow
-            if grid[row][col] == "L": arrow_index = p_arrow - 1 if p_arrow > 0 else 3
-            if grid[row][col] == "R": arrow_index = p_arrow + 1 if p_arrow < 3 else 0
-            
-            n_row, n_col = move(arrow[arrow_index], row, col, (len(grid), len(grid[0]))) 
-
-            history.append((arrow_index, n_row, n_col))
-            visited[n_row][n_col][arrow_index] = True 
-        
-        answer.append(len(history) - 1)
+    for i in range(len(visited)):
+        for k in range(len(visited[i])):
+            for j in range(4):
+                if not visited[i][k][j]: 
+                    visited, distance = cycle(grid, visited, (j, i, k))
+                    answer.append(distance)
 
     return sorted(answer)
 
-grid = ["R","R"]	
+grid = ["S"]
 print(solution(grid))
