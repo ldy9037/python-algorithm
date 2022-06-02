@@ -8,13 +8,6 @@ def move(arrow, x, y, limit):
 
     return (x, y)
 
-def start_location(visited):
-    for i in range(len(visited)):
-        for k in range(len(visited[i])):
-            if not all(visited[i][k]): return (visited[i][k].index(False), i, k)
-    
-    return False
-
 def cycle(grid, visited, start):
     arrow = ["n", "e", "s", "w"]
     history = [start] # arrow, x, y 0,0,0이면 동쪽으로 가서 x,y에 도착했다는 뜻
