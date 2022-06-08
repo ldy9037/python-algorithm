@@ -1,11 +1,13 @@
 # 카카오 블라인드 - 순위 검색
+# 교집합으로 구했는데 성능이 효율성에서 실패
 from collections import defaultdict
 
 def find_num(score, v):
     result = set()
 
-    for i, s in enumerate(score):
-        if s >= v: result.add(i) 
+    for num, i in score:
+        if num < v: break
+        result.add(i) 
     
     return result
 
@@ -17,8 +19,10 @@ def solution(info, query):
 
     for i, v in enumerate(info):
         for item in v.split():
-            if item.isdigit(): score.append(int(item))
+            if item.isdigit(): score.append((int(item), i))
             else: group[item].add(i)
+
+    score.sort(reverse=True)
 
     for q in query:
         s = set()
@@ -36,7 +40,10 @@ def solution(info, query):
 
     return answer
 
-info = ["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"]
-query = ["python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]
+info = ["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"]	
+query = ["java and backend and junior and pizza 100","python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]
+
+#info = ["java backend junior pizza 150"] * 50000
+#query = ["- and - and - and -1"] * 100000
 
 print(solution(info, query))
