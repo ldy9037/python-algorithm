@@ -36,8 +36,7 @@ def solution(relation):
             n.append(r.pop(0))
             
             queue.append((n, r.copy()))
-            print(queue)
-    print(answer)
+            
     return len(answer)
 
 relation = [['a',1,'aaa','c','ng'],['b',1,'bbb','c','g'],['c',1,'aaa','d','ng'],['d',2,'bbb','d','ng']]
