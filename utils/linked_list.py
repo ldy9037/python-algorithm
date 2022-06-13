@@ -90,6 +90,17 @@ class LinkedList:
         if current.getPrev() == None: self.setHead(current)
         else: current.getPrev().setNext(current)
 
+    def findNodeByIndex(self, index):
+        current = {"index": 0, "node": self.getHead()}
+        
+        while current["index"] < index:
+            if current["node"] == None: break
+
+            current["index"] += 1
+            current["node"] = current["node"].getNext()
+
+        return current["node"]        
+
     # find, node set
     def remove(self, index): 
         current = {"index": 0, "node": self.getHead()}
