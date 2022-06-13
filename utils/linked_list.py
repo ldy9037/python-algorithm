@@ -33,28 +33,19 @@ class LinkedList:
 
     def add(self, index, node):             
         current = self.findNodeByIndex(index)
+        if current == None: return False
         
-        if current == None: self.append(node)
-        else: self.connectNode(current.prev(), node, current)
+        self.connectNode(current.getPrev(), node, current)
 
-    # find 함수 분리, node set 분리
+        return True
+
     def addAfterValue(self, value, node):
-        current = self.getHead()
+        current = self.findNodeByValue(value)
+        if current == None: return False
         
-        while current != None: 
-            if current.getValue() == value: 
-                node.setNext(current.getNext())
-                node.setPrev(current)
-                current.setNext(node)
+        self.connectNode(current, node, current.getNext())
 
-                next_node = node.setNext()
-                if next_node == None: self.setTail(node)
-                else: next_node.setPrev(node)
-
-                break
-            
-            current = current.getNext()
-        return -1
+        return True
 
     # set 분리
     def append(self, node):
