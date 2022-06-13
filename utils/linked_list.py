@@ -84,11 +84,11 @@ class LinkedList:
         current.setPrev(prev)
         current.setNext(next)
 
-        if next == None: self.setTail(current)
-        else: next.setPrev(current)
+        if current.getNext() == None: self.setTail(current)
+        else: current.getNext().setPrev(current)
 
-        if prev == None: self.setHead(current)
-        else: prev.setNext(current)
+        if current.getPrev() == None: self.setHead(current)
+        else: current.getPrev().setNext(current)
 
     # find, node set
     def remove(self, index): 
