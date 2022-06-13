@@ -28,6 +28,7 @@ class LinkedList:
 
         return result
 
+    # find 함수 분리, node set 분리
     def add(self, index, node):             
         current = {"index": 0, "node": self.getHead()}
         prev = None
@@ -38,18 +39,19 @@ class LinkedList:
                 node.setPrev(prev)
 
                 if node.getNext() == None: self.setTail(node)
-                else: current["node"].setPrev(node)
+                else: node.getNext().setPrev(node)
 
                 if prev == None: self.setHead(node)
                 else: prev.setNext(node)
                 break
-
-            prev = current["node"]
-            current["node"] = current["node"].getNext()                
-            current["index"] += 1
+            else:
+                prev = current["node"]
+                current["node"] = current["node"].getNext()                
+                current["index"] += 1
         
         if current["index"] > index: return -1
 
+    # find 함수 분리, node set 분리
     def addAfterValue(self, value, node):
         current = self.getHead()
         
@@ -68,6 +70,7 @@ class LinkedList:
             current = current.getNext()
         return -1
 
+    # set 분리
     def append(self, node):
         tail = self.getTail()
         self.setTail(node)
@@ -77,6 +80,17 @@ class LinkedList:
             node.setPrev(tail)
         else: self.setHead(node)
 
+    def connectNode(self, prev, current, next):
+        current.setPrev(prev)
+        current.setNext(next)
+
+        if next == None: self.setTail(current)
+        else: next.setPrev(current)
+
+        if prev == None: self.setHead(current)
+        else: prev.setNext(current)
+
+    # find, node set
     def remove(self, index): 
         current = {"index": 0, "node": self.getHead()}
         prev = None
