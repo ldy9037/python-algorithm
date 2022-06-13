@@ -93,13 +93,19 @@ class LinkedList:
     def findNodeByIndex(self, index):
         current = {"index": 0, "node": self.getHead()}
         
-        while current["index"] < index:
-            if current["node"] == None: break
-
+        while current != None and current["index"] < index:
             current["index"] += 1
             current["node"] = current["node"].getNext()
 
         return current["node"]        
+
+    def findNodeByValue(self, value):
+        current = self.getHead()
+
+        while current != None and current.getValue() != value:
+            current = current.getNext()
+
+        return current
 
     # find, node set
     def remove(self, index): 
