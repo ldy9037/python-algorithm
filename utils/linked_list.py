@@ -1,6 +1,9 @@
 # 파이썬은 linked list가 없길래 그냥 간단하게 구현해 봄.(최소한의 기능만 포함)
 # 필요한 기능은 그때그때 추가해서 사용할 것.
 # 중복 코드가 조금 많음. 기능을 좀 더 잘게 나눠야 겠음.
+from sqlite3 import connect
+
+
 class LinkedList:
     def __init__(self):
         self.head = None
@@ -28,28 +31,11 @@ class LinkedList:
 
         return result
 
-    # find 함수 분리, node set 분리
     def add(self, index, node):             
-        current = {"index": 0, "node": self.getHead()}
-        prev = None
-
-        while current["index"] <= index:
-            if current["index"] == index:
-                node.setNext(current["node"])
-                node.setPrev(prev)
-
-                if node.getNext() == None: self.setTail(node)
-                else: node.getNext().setPrev(node)
-
-                if prev == None: self.setHead(node)
-                else: prev.setNext(node)
-                break
-            else:
-                prev = current["node"]
-                current["node"] = current["node"].getNext()                
-                current["index"] += 1
+        current = self.findNodeByIndex(index)
         
-        if current["index"] > index: return -1
+        if current == None: self.append(node)
+        else: self.connectNode(current.prev(), node, current)
 
     # find 함수 분리, node set 분리
     def addAfterValue(self, value, node):
