@@ -31,32 +31,6 @@ class LinkedList:
 
         return result
 
-    def add(self, index, node):             
-        current = self.findNodeByIndex(index)
-        if current == None: return False
-        
-        self.connectNode(current.getPrev(), node, current)
-
-        return True
-
-    def addAfterValue(self, value, node):
-        current = self.findNodeByValue(value)
-        if current == None: return False
-        
-        self.connectNode(current, node, current.getNext())
-
-        return True
-
-    # set 분리
-    def append(self, node):
-        tail = self.getTail()
-        self.setTail(node)
-
-        if tail != None: 
-            tail.setNext(node)
-            node.setPrev(tail)
-        else: self.setHead(node)
-
     def connectNode(self, prev, current, next):
         current.setPrev(prev)
         current.setNext(next)
@@ -83,6 +57,25 @@ class LinkedList:
             current = current.getNext()
 
         return current
+
+    def add(self, index, node):             
+        current = self.findNodeByIndex(index)
+        if current == None: return False
+        
+        self.connectNode(current.getPrev(), node, current)
+
+        return True
+
+    def addAfterValue(self, value, node):
+        current = self.findNodeByValue(value)
+        if current == None: return False
+        
+        self.connectNode(current, node, current.getNext())
+
+        return True
+
+    def append(self, node):
+        self.connectNode(self.getTail(), node, None)
 
     # find, node set
     def remove(self, index): 
