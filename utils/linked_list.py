@@ -97,15 +97,12 @@ class LinkedList:
         return current
 
     def getValue(self, index):
-        current = {"index": 0, "node": self.getHead()}
-        
-        while current["node"] != None: 
-            if current["index"] == index: return current["node"].getValue()
+        result = None
 
-            current["node"] = current["node"].getLink()
-            current["index"] += 1
+        current = self.findNodeByIndex(index)
+        if current != None: result = current.getValue()
         
-        return None
+        return result
 
     def toList(self):
         result = []
