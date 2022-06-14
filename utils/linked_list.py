@@ -111,7 +111,7 @@ class LinkedList:
         while current != None: 
             result.append(current.getValue())
             
-            current = current.getLink()
+            current = current.getNext()
         
         return result
 
