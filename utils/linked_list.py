@@ -86,23 +86,15 @@ class LinkedList:
 
     def remove(self, index): 
         current = self.findNodeByIndex(index)
-        if current != None: self.disconnectNode(current.getPrev(), current,getNext())
+        if current != None: self.disconnectNode(current.getPrev(), current.getNext())
         
         return current
 
     def removeByValue(self, value):
-        current = {"index": 0, "node": self.getHead()}
-        prev = None
+        current = self.findNodeByValue(value)
+        if current != None: self.disconnectNode(current.getPrev(), current.getNext())
 
-        while current["node"] != None:
-            if current["node"].getValue() == value:
-                prev.setLink(current["node"].getLink())
-                return current["index"]
-
-            prev = current["node"]
-            current["node"] = current["node"].getLink() 
-            
-        return -1
+        return current
 
     def getValue(self, index):
         current = {"index": 0, "node": self.getHead()}
