@@ -84,22 +84,11 @@ class LinkedList:
     def append(self, node):
         self.connectNode(self.getTail(), node, None)
 
-    # find, node set
     def remove(self, index): 
-        current = {"index": 0, "node": self.getHead()}
-        prev = None
-
-        while current["index"] <= index:
-            if current["index"] == index:
-                if prev == None: self.setHead(current["node"].getLink())
-                else: prev.setLink(current["node"].getLink())
-                return current["node"].getValue()
-            
-            prev = current["node"]
-            current["node"] = current["node"].getLink()
-            current["index"] += 1
+        current = self.findNodeByIndex(index)
+        if current != None: self.disconnectNode(current.getPrev(), current,getNext())
         
-        return None
+        return current
 
     def removeByValue(self, value):
         current = {"index": 0, "node": self.getHead()}
