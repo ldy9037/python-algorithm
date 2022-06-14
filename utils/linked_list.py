@@ -41,6 +41,13 @@ class LinkedList:
         if current.getPrev() == None: self.setHead(current)
         else: current.getPrev().setNext(current)
 
+    def disconnectNode(self, prev, next):
+        if prev == None: self.setHead(next)
+        else: prev.setNext(next)
+
+        if next == None: self.setTail(prev)
+        else: next.setPrev(prev)
+
     def findNodeByIndex(self, index):
         current = {"index": 0, "node": self.getHead()}
         
