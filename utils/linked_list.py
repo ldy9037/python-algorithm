@@ -1,8 +1,6 @@
 # 파이썬은 linked list가 없길래 그냥 간단하게 구현해 봄.(최소한의 기능만 포함)
 # 필요한 기능은 그때그때 추가해서 사용할 것.
 # 중복 코드가 조금 많음. 기능을 좀 더 잘게 나눠야 겠음.
-from sqlite3 import connect
-
 
 class LinkedList:
     def __init__(self):
@@ -116,14 +114,10 @@ class LinkedList:
         return result
 
 class Node:
-    def __init__(self, value, link=None, next=None, prev=None):
+    def __init__(self, value, next=None, prev=None):
         self.value = value
-        self.link = link
         self.next = next
         self.prev = prev
-
-    def setLink(self, node):
-        self.link = node
     
     def setNext(self, next):
         self.next = next
@@ -133,9 +127,6 @@ class Node:
 
     def setValue(self, value):
         self.value = value
-
-    def getLink(self):
-        return self.link 
     
     def getNext(self):
         return self.next 
