@@ -34,5 +34,13 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.l_list.length(), 6, "노드가 정상적으로 삭제되지 않았습니다.")
         self.assertNotEqual(self.l_list.findNodeByIndex(4), removeNode, "노드가 정상적으로 삭제되지 않았습니다.")
 
+    def test_when_all_remove(self):
+        print("- When: 마지막으로 남은 노드들을 전부 제거한다.")
+        
+        for v in self.l_list.toList():
+            self.l_list.removeByValue(v)
+
+        self.assertFalse(self.l_list.toList(), "노드들이 정상적으로 삭제되지 않았습니다.")    
+        
 if __name__ == '__main__':
     unittest.main()
