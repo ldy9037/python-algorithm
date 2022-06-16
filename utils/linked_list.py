@@ -49,7 +49,7 @@ class LinkedList:
     def findNodeByIndex(self, index):
         current = {"index": 0, "node": self.getHead()}
         
-        while current != None and current["index"] < index:
+        while current["node"] != None and current["index"] < index:
             current["index"] += 1
             current["node"] = current["node"].getNext()
 
