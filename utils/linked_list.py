@@ -114,10 +114,10 @@ class LinkedList:
         return result
 
 class Node:
-    def __init__(self, value, next=None, prev=None):
+    def __init__(self, value, prev=None, next=None):
         self.value = value
-        self.next = next
         self.prev = prev
+        self.next = next
     
     def setNext(self, next):
         self.next = next
