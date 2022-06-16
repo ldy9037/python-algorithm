@@ -23,5 +23,10 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.l_list.length(), 6, "노드가 정상적으로 삽입되자 않았습니다.")
         self.assertEqual(self.l_list.findNodeByIndex(2).getValue(), 0, "노드가 잘못된 위치에 삽입되었습니다.")
         
+        print("- When: 값이 3인 노드 뒤에 값이 7인 노드를 삽입한 뒤")
+        self.l_list.addAfterValue(3, Node(7))
+        self.assertEqual(self.l_list.length(), 7, "노드가 정상적으로 삽입되자 않았습니다.")
+        self.assertEqual(self.l_list.findNodeByValue(3).getNext(), self.l_list.findNodeByValue(7), "노드가 잘못된 위치에 삽입되었습니다.")
+
 if __name__ == '__main__':
     unittest.main()
