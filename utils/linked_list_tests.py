@@ -28,6 +28,11 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.l_list.length(), 7, "노드가 정상적으로 삽입되자 않았습니다.")
         self.assertEqual(self.l_list.findNodeByValue(3).getNext(), self.l_list.findNodeByValue(7), "노드가 잘못된 위치에 삽입되었습니다.")
 
-    
+    def test_when_remove(self):
+        print("- When: 5번째(index = 4)에 위치해 있는 노드를 제거한 후")
+        removeNode = self.l_list.remove(4)
+        self.assertEqual(self.l_list.length(), 6, "노드가 정상적으로 삭제되지 않았습니다.")
+        self.assertNotEqual(self.l_list.findNodeByIndex(4), removeNode, "노드가 정상적으로 삭제되지 않았습니다.")
+
 if __name__ == '__main__':
     unittest.main()
