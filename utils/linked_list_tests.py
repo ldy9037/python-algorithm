@@ -7,14 +7,14 @@ class TestLinkedList(unittest.TestCase):
     l_list = LinkedList()
 
     def setUp(self):
-        print("- Then: 값이 0 ~ 5인 노드 5개가 세팅되어 있을 때")
+        print("- Given: 값이 0 ~ 5인 노드 5개가 세팅되어 있을 때")
         for i in range(5):
             self.l_list.append(Node(i, None, None))
 
         self.assertEqual(self.l_list.length(), 5, "노드가 정상적으로 세팅되지 않았습니다.")
 
     def tearDown(self):
-        print('[최종 Linked List 내부] : ', self.l_list.toList())
+        print('- [최종 Linked List 내부] : ', self.l_list.toList())
 
     def test_when(self):    
         print("- When: 3번째 위치(index = 2)에 값이 0인 노드를 삽입하고")
@@ -32,12 +32,14 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.l_list.length(), 6, "노드가 정상적으로 삭제되지 않았습니다.")
         self.assertNotEqual(self.l_list.findNodeByIndex(4), removeNode, "노드가 정상적으로 삭제되지 않았습니다.")
 
-        print("- When: 마지막으로 남은 노드들을 전부 제거한다.")
+        print("- When: 마지막으로 남은 노드들을 전부 제거한다면")
         
         for v in self.l_list.toList():
             self.l_list.removeByValue(v)
 
         self.assertFalse(self.l_list.toList(), "노드들이 정상적으로 삭제되지 않았습니다.")    
+
+        print("- Then: List에는 아무 노드도 남아있지 않아야 한다.")
         
 if __name__ == '__main__':
     unittest.main()
