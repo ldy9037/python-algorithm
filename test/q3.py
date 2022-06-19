@@ -88,7 +88,12 @@ class LinkedList:
         return True
 
     def append(self, node):
-        self.connectNode(self.getTail(), node, None)
+        if self.getTail() == None: self.setTail(node)
+        else: 
+            self.getTail().setNext(node)
+            node.setPrev(self.getTail())
+            self.setTail(node)
+        #self.connectNode(self.getTail(), node, None)
 
     def remove(self, index): 
         current = self.findNodeByIndex(index)
@@ -153,19 +158,31 @@ def solution(n, k, cmd_list):
     answer = ['O'] * n
     
     delete_stack = []
+    move = 0
     table = LinkedList()
 
-    for i in range(n): table.append(Node(i, None, None))
-    selected = table.findNodeByIndex(k)
+    next_n = None
+    c = Node(0, None, None)
+    for i in range(n): 
+        if i == 0: table.setHead(c)
+        if i == k: selected = c
+        if i == n - 1:table.setTail(c)
+        else: 
+            next_n = Node(i + 1, c, None)
+            c.setNext(next_n)
+            c = next_n
 
     for cmd in cmd_list:
         if len(cmd) >= 2:
             direction, count = cmd.split()
             count = int(count)
-
-            for i in range(count):
-                selected = selected.getPrev() if direction == "U" else selected.getNext()
+            move = move - count if direction == "U" else move + count
         if  len(cmd) == 1:
+            for i in range(abs(move)):
+                selected = selected.getPrev() if move < 0 else selected.getNext()
+            
+            move = 0
+
             if cmd == "C": 
                 table.disconnectNode(selected.getPrev(), selected.getNext())
                 delete_stack.append(selected)
