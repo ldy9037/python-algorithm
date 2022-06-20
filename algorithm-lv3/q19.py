@@ -34,38 +34,44 @@ def solution(gems):
 """
 from collections import deque
 
+def check(gems, middle, kind_count):
+    result = [0, 0]
+
+    queue = deque()
+    queue.extend(gems[:middle])
+
+    result = [0, 0]
+    r = gems[middle:]
+    for i in range(len(r) + 1):
+        if len(set(queue)) == kind_count: 
+            result = [i + 1, i + middle] 
+            break
+        
+        if len(r) == i: break
+
+        queue.popleft()
+        queue.append(r[i])
+
+    return result
+
 def solution(gems):
     answer = []
     kind_count = len(set(gems))
     left = kind_count
     right = len(gems)
 
-    while left <= right:
+    while left < right:
         middle = (left + right) // 2
+        
+        answer = check(gems, middle, kind_count)
 
-        queue = deque()
-        queue.extend(gems[:middle])
-
-        answer = [-1, -1]
-        r = gems[middle:]
-        for i in range(len(r)):
-            print(len(set(queue)))
-            print(kind_count)
-            if len(set(queue)) == kind_count: 
-                answer = [i, i + middle - 1] 
-                break
-            
-            queue.popleft()
-            queue.append(r[i])
-
-        print(answer)
-
-        if answer[0] == -1: 
-            left = middle + 1
+        if answer[0] == 0: left = middle + 1
         else: right = middle
+
+    answer = check(gems, left, kind_count)
 
     return answer
 
-gems = ["1", "2", "3", "4", "3", "2", "1","5"]
+gems = ["ZZZ", "YYY", "NNNN", "YYY", "BBB"]
 
 print(solution(gems))
