@@ -37,7 +37,6 @@ def solution(gems):
     
         if complete: answer.append(current.copy())
             
-    print(answer)
     answer.sort(key=lambda x: x[1] - x[0])
     return answer[0]
 
