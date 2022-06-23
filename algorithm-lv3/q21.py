@@ -45,8 +45,6 @@ def solution(a, b, g, s, w, t):
 import math
 
 def solution(a, b, g, s, w, t):
-    answer = 0
-    
     left = 0
     right = (10 ** 9) * 2
 
@@ -54,44 +52,38 @@ def solution(a, b, g, s, w, t):
         middle = (left + right) // 2
 
         success = False
-        current = {
-            "gold" : a,
-            "silver" : b
-        }
         
+        max = [0, 0]
+        weight = 0
+
         for i in range(len(t)):
-            gold = g[i] if g[i] <= current["gold"] else current["gold"]
-            silver = s[i] if s[i] <= current["silver"] else current["silver"]
+            send_count = math.ceil((g[i] + s[i]) / w[i]) 
+            max_count = (middle // t[i] + 1) // 2
 
-            send_count = math.ceil((gold + silver) / w[i]) 
-            max_count = (middle / t[i] + 1) // 2
-
+            total_w = g[i] + s[i]
             if send_count > max_count:
                 total_w = w[i] * max_count
-                gold = gold if total_w >= gold else total_w
-                silver = total_w - gold
 
-            current["gold"] = current["gold"] - gold if current["gold"] >= gold else 0
-            current["silver"] = current["silver"] - silver if current["silver"] >= gold else 0
+            max[0] = max[0] + total_w if g[i] >= total_w else max[0] + g[i]
+            max[1] = max[1] + total_w if s[i] >= total_w else max[1] + s[i]
+            weight += total_w
 
-            if current["gold"] == 0 and current["silver"] == 0: 
+            if weight >= a + b and max[0] >= a and max[1] >= b: 
                 success = True
-                break
-        
+            
         if success: 
             right = middle
-            answer = middle
         else: left = middle + 1
         
-    return answer
+    return right
 
 
-a = 20
-b = 20
-g = [20, 20]
-s = [20, 0]
-w = [10, 10]
-t = [10, 10]
+a = 0
+b = 0
+g = [1, 0]
+s = [1, 0]
+w = [1, 1]
+t = [1, 1]
 
 """
 a = 90
