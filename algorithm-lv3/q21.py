@@ -46,8 +46,8 @@ import math
 
 def solution(a, b, g, s, w, t):
     left = 0
-    right = (10 ** 9) * 2
-
+    right = ( ( 10 ** 9 ) * 2 * 2 - 1 ) * (10 ** 5)
+    
     while left < right:
         middle = (left + right) // 2
 
@@ -71,18 +71,17 @@ def solution(a, b, g, s, w, t):
             if weight >= a + b and max[0] >= a and max[1] >= b: 
                 success = True
             
-        if success: 
-            right = middle
+        if success: right = middle
         else: left = middle + 1
         
     return right
 
 
-a = 0
+a = 2
 b = 0
-g = [1, 0]
-s = [1, 0]
-w = [1, 1]
+g = [2, 0]
+s = [0, 0]
+w = [2, 1]
 t = [1, 1]
 
 """
