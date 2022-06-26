@@ -1,5 +1,5 @@
 # Summer/Winter Coding - 지형 이동
-# MST는 자주 안짜봐서 코드가 조금 지저분한 것 같음. 
+
 import heapq
 
 def solution(land, height):
@@ -20,23 +20,23 @@ def solution(land, height):
         c_cost = land[x][y]
 
         if x > 0 and not visited[x - 1][y]: 
-            heapq.heappush(heap,(abs(c_cost - land[x - 1][y]), (x,y), (x - 1, y)))
+            heapq.heappush(heap,(abs(c_cost - land[x - 1][y]), (x - 1, y)))
         if y > 0 and not visited[x][y - 1]: 
-            heapq.heappush(heap,(abs(c_cost - land[x][y - 1]), (x,y), (x, y - 1)))
+            heapq.heappush(heap,(abs(c_cost - land[x][y - 1]), (x, y - 1)))
         if x < len(land) - 1 and not visited[x + 1][y]:
-            heapq.heappush(heap,(abs(c_cost - land[x + 1][y]), (x,y), (x + 1, y)))
+            heapq.heappush(heap,(abs(c_cost - land[x + 1][y]), (x + 1, y)))
         if y < len(land) - 1 and not visited[x][y + 1]:
-            heapq.heappush(heap,(abs(c_cost - land[x][y + 1]), (x,y), (x, y + 1)))
+            heapq.heappush(heap,(abs(c_cost - land[x][y + 1]), (x, y + 1)))
 
-        cost, start, end = heapq.heappop(heap)
+        cost, next = heapq.heappop(heap)
         
-        x, y = end
+        x, y = next
         while visited[x][y]:
-            cost, start, end = heapq.heappop(heap)
-            x, y = end
+            cost, next = heapq.heappop(heap)
+            x, y = next
         
         answer = answer + cost if cost > height else answer
-        current = end
+        current = next
     
     return answer
 
