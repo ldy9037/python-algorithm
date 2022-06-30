@@ -1,4 +1,5 @@
 # 팁스타운 - 단어 퍼즐
+"""
 from collections import deque
 
 def solution(strs, t):
@@ -21,8 +22,45 @@ def solution(strs, t):
 
     answer = min(result) if result else -1
     return answer
+"""
+from collections import defaultdict
+from collections import deque
 
-strs = ["ba","na","n","a"]
+def solution(strs, t):
+    answer = 0
+
+    min_dict = defaultdict(int)
+    for str in strs: min_dict[str] = 1
+
+    t = deque(t)
+
+    string = ""
+    while t:
+        string += t.popleft()
+        
+        if string in min_dict: 
+            
+            min_dict[string] = 1
+            continue
+        
+        for i in range(len(string)):
+            f, b = string[:i + 1], string[i + 1:]
+
+            if min_dict[f] == 0 or min_dict[b] == 0: continue
+
+            cnt = min_dict[f] + min_dict[b] 
+            if min_dict[string] == 0 or cnt < min_dict[string] :
+                min_dict[string] = cnt 
+            if cnt <= 2: break
+
+        if not string in min_dict: min_dict[string] = 0
+
+    answer = min_dict[string] if min_dict[string] != 0 else -1
+            
+    return answer
+
+
+strs = 	["ba", "na", "n", "a"]
 t = "banana"	
 
 print(solution(strs, t))
