@@ -38,13 +38,13 @@ def solution(strs, t):
     while t:
         string += t.popleft()
         
-        if string in min_dict: 
-            
+        
+        if len(string) <= 5 and string in min_dict: 
             min_dict[string] = 1
             continue
         
-        for i in range(len(string)):
-            f, b = string[:i + 1], string[i + 1:]
+        for i in range(6):
+            f, b = string[:len(string) - i], string[len(string) - i:]
 
             if min_dict[f] == 0 or min_dict[b] == 0: continue
 
@@ -60,7 +60,7 @@ def solution(strs, t):
     return answer
 
 
-strs = 	["ba", "na", "n", "a"]
-t = "banana"	
+strs = 	["ab", "na", "n", "a", "bn"]
+t = "nabnabn"	
 
 print(solution(strs, t))
