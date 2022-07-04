@@ -63,7 +63,6 @@ def solution(strs, t):
             
     return answer
 """
-from collections import deque
 
 def solution(strs, t):
     answer = [float("inf")] * len(t)   
