@@ -61,7 +61,7 @@ def solution(words, queries):
 
     for i, query in enumerate(queries):
         length = len(query)
-        node = trie.find(query.replace("?","")) if query[-1] == "?" else trie_reverse.find(query.replace("?",""))
+        node = trie.find(query.replace("?","")) if query[-1] == "?" else trie_reverse.find(reversed(query.replace("?","")))
         
         if node: 
             answer[i] = node.getLength().count(length)
@@ -69,7 +69,7 @@ def solution(words, queries):
     return answer
 
 words = ["frodo", "front", "frost", "frozen", "frame", "kakao"]	
-queries = ["fro??", "????o", "fr???", "??????", "pro?"]	
+queries = ["fro??", "???ao", "fr???", "??????", "pro?"]	
 print(solution(words, queries))
 
 # [3, 2, 4, 1, 0]
