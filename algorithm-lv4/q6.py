@@ -1,35 +1,71 @@
 # 카카오 블라인드 - 가사 검색
-from collections import defaultdict
+
+# http://github.com/ldy9037
+class Trie:
+    def __init__(self):
+        self.head = Node("")
+
+    def save(self, string):
+        length = len(string)
+        current = self.head
+
+        current.getLength().append(length)
+
+        for c in string: 
+            next = current.nextNode(c)
+            if next == None:
+                next = Node(c)
+                current.getNext()[c] = next
+            
+            next.getLength().append(length)
+            current = next
+        
+    def find(self, string):
+        current = self.head
+        for c in string:
+            if current == None: break
+            current = current.nextNode(c)
+            
+        return current
+
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.next = {}
+        self.length = []
+
+    def nextNode(self, key):
+        if key in self.next: 
+            return self.next[key]
+
+        return None
+
+    def getLength(self):
+        return self.length
+
+    def getKey(self):
+        return self.key
+
+    def getNext(self):
+        return self.next        
 
 def solution(words, queries):
     answer = [0] * len(queries) 
 
-    trie = dict()
-    trie_reverse = dict()
+    trie = Trie()
+    trie_reverse = Trie()
+
     for word in words:
-        word_length = len(word)
-        if not word_length in trie:
-            trie[word_length] = defaultdict(int)
-            trie_reverse[word_length] = defaultdict(int)
+        trie.save(word)
+        trie_reverse.save("".join(reversed(word)))
 
-        trie_reverse[word_length][""] += 1
-
-        for i in range(1, word_length + 1):
-            trie[word_length][word[:i]] += 1
-            trie_reverse[word_length][word[-i:]] += 1
-
-    for i in range(len(queries)):
-
-        query_length = len(queries[i])
-        if not query_length in trie: continue
-        query = queries[i]
-        front = (query[0] == "?")
+    for i, query in enumerate(queries):
+        length = len(query)
+        node = trie.find(query.replace("?","")) if query[-1] == "?" else trie_reverse.find(query.replace("?",""))
         
-        query = query.replace("?", "")
+        if node: 
+            answer[i] = node.getLength().count(length)
 
-        if front: answer[i] = trie_reverse[query_length][query]
-        else: answer[i] = trie[query_length][query]
- 
     return answer
 
 words = ["frodo", "front", "frost", "frozen", "frame", "kakao"]	
