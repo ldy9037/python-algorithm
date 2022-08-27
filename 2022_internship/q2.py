@@ -9,7 +9,7 @@ def solution(queue1, queue2):
     queue2 = deque(queue2)
 
     while q_sum["queue1"] != q_sum["queue2"]:
-        if answer == len(queue1) + len(queue2):
+        if answer == ( len(queue1) + len(queue2) ) * 2:
             answer = -1
             break
         
@@ -27,7 +27,7 @@ def solution(queue1, queue2):
 
     return answer
 
-queue1 = [3, 2, 7, 2]
-queue2 = [4, 6, 5, 1]
+queue1 = [1,1,1,1]
+queue2 = [2,2,2,2]
 
 print(solution(queue1, queue2))
